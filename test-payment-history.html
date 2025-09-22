@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment History Button Test</title>
+    <style>
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .left-section { display: flex; align-items: center; gap: 16px; }
+        .back-btn { padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px; }
+        .payment-history-btn { padding: 8px 16px; border: 1px solid #ccc; background: white; border-radius: 4px; display: flex; align-items: center; gap: 8px; }
+        .title { font-size: 24px; font-weight: bold; margin: 0; }
+        .subtitle { color: #666; margin: 0; }
+    </style>
+</head>
+<body>
+    <h1>Expected Payment History Button Location</h1>
+    <p>This shows where the Payment History button should appear on the payment page:</p>
+    
+    <div class="header">
+        <div class="left-section">
+            <button class="back-btn">← Back</button>
+            <div>
+                <h1 class="title">Complete Payment</h1>
+                <p class="subtitle">Booking ID: #36</p>
+            </div>
+        </div>
+        
+        <button class="payment-history-btn">
+            🕒 Payment History
+        </button>
+    </div>
+    
+    <p><strong>Location:</strong> The "Payment History" button should be in the <em>top-right corner</em> of the payment page header.</p>
+    <p><strong>URL to test:</strong> <code>http://localhost:5000/payment/36</code></p>
+</body>
+</html>

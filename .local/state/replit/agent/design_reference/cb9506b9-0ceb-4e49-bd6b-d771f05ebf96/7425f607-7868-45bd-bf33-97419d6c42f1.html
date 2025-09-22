@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryen Sports Arena - Sports Facility Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#10b981', 
+                        accent: '#f59e0b',
+                        dark: '#1f2937',
+                        light: '#f9fafb'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="font-sans bg-gray-50 min-h-screen">
+    <!-- @COMPONENT: Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-dumbbell text-primary text-2xl mr-3"></i>
+                    <span class="font-bold text-xl text-dark">Aryen Sports Arena</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-primary transition-colors">Home</a>
+                    <a href="#facilities" class="text-gray-700 hover:text-primary transition-colors">Facilities</a>
+                    <a href="#about" class="text-gray-700 hover:text-primary transition-colors">About</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors">Contact</a>
+                    <button data-event="click:openLoginModal" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Login / Sign Up
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button data-event="click:toggleMobileMenu" class="text-gray-700 hover:text-primary">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t hidden">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-primary">Home</a>
+                <a href="#facilities" class="block py-2 text-gray-700 hover:text-primary">Facilities</a>
+                <a href="#about" class="block py-2 text-gray-700 hover:text-primary">About</a>
+                <a href="#contact" class="block py-2 text-gray-700 hover:text-primary">Contact</a>
+                <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-700 transition-colors mt-2">
+                    Login / Sign Up
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center">
+        <!-- Modern sports facility with indoor courts and equipment -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" 
+             style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080');">
+        </div>
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        
+        <div class="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Welcome to <span class="text-accent">Aryen Sports Arena</span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-200">
+                Book premium sports facilities online. Play badminton, soccer, basketball, swim, and more!
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button data-event="click:scrollToFacilities" class="bg-primary hover:bg-blue-700 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Book a Slot Now
+                </button>
+                <button data-event="click:scrollToFacilities" class="bg-transparent border-2 border-white hover:bg-white hover:text-dark text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all">
+                    <i class="fas fa-search mr-2"></i>
+                    Explore Facilities
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Hero Section -->
+
+    <!-- @COMPONENT: Facilities Section -->
+    <section id="facilities" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Our Premium Facilities</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    State-of-the-art sports facilities designed for all skill levels. Book your favorite sport and enjoy world-class amenities.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Badminton Courts -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Professional badminton court with players -->
+                    <img src="https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Badminton courts" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Badminton Courts</h3>
+                            <span class="bg-secondary text-white px-2 py-1 rounded-full text-sm">Available</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">2 professional courts with premium flooring</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹200/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soccer Turf -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Modern artificial soccer turf field -->
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Soccer turf field" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Soccer Turf</h3>
+                            <span class="bg-secondary text-white px-2 py-1 rounded-full text-sm">Available</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Full-size artificial turf with floodlights</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹800/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Basketball Court -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Indoor basketball court with professional lighting -->
+                    <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Basketball court" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Basketball Court</h3>
+                            <span class="bg-accent text-white px-2 py-1 rounded-full text-sm">Busy</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Professional court with adjustable hoops</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹300/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swimming Pool -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Olympic-size swimming pool with clear blue water -->
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Swimming pool" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Swimming Pool</h3>
+                            <span class="bg-secondary text-white px-2 py-1 rounded-full text-sm">Available</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Olympic-size pool with lifeguard service</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹150/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cricket Turf -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Cricket practice nets with artificial turf -->
+                    <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Cricket turf" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Cricket Turf</h3>
+                            <span class="bg-secondary text-white px-2 py-1 rounded-full text-sm">Available</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Practice nets with bowling machine</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹400/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multi-Purpose Hall -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow cursor-pointer" data-event="click:selectFacility">
+                    <!-- Large indoor sports hall with wooden flooring -->
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Multi-purpose sports hall" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-xl font-semibold text-dark">Multi-Purpose Hall</h3>
+                            <span class="bg-secondary text-white px-2 py-1 rounded-full text-sm">Available</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Versatile space for various indoor sports</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-primary font-semibold">₹600/hour</span>
+                            <button class="bg-primary hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Facilities Section -->
+
+    <!-- @COMPONENT: Booking Flow Modal -->
+    <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl max-w-2xl w-full max-h-screen overflow-y-auto">
+                <div class="sticky top-0 bg-white border-b px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-dark">Book Your Slot</h2>
+                    <button data-event="click:closeBookingModal" class="text-gray-500 hover:text-dark">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Booking Steps -->
+                    <div class="flex items-center mb-8">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">1</div>
+                            <span class="ml-2 font-medium text-primary">Facility</span>
+                        </div>
+                        <div class="w-16 h-0.5 bg-gray-300 mx-4"></div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-semibold">2</div>
+                            <span class="ml-2 text-gray-600">Date & Time</span>
+                        </div>
+                        <div class="w-16 h-0.5 bg-gray-300 mx-4"></div>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-semibold">3</div>
+                            <span class="ml-2 text-gray-600">Payment</span>
+                        </div>
+                    </div>
+
+                    <!-- Facility Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">Selected Facility</h3>
+                        <div class="bg-gray-50 rounded-lg p-4 flex items-center">
+                            <div class="w-16 h-16 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-table-tennis text-white text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold" data-bind="selectedFacility.name">Badminton Court 1</h4>
+                                <p class="text-gray-600" data-bind="selectedFacility.description">Professional court with premium flooring</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Type -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">Booking Type</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors">
+                                <input type="radio" name="booking-type" value="per-person" class="sr-only">
+                                <div class="text-center">
+                                    <i class="fas fa-user text-2xl text-primary mb-2"></i>
+                                    <div class="font-medium">Per Person</div>
+                                    <div class="text-sm text-gray-600">Pay per participant</div>
+                                </div>
+                            </label>
+                            <label class="border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors">
+                                <input type="radio" name="booking-type" value="full-ground" class="sr-only">
+                                <div class="text-center">
+                                    <i class="fas fa-building text-2xl text-primary mb-2"></i>
+                                    <div class="font-medium">Full Ground</div>
+                                    <div class="text-sm text-gray-600">Book entire facility</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Plan Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">Choose Plan</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <label class="border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors">
+                                <input type="radio" name="plan" value="hourly" class="sr-only" checked>
+                                <div class="text-center">
+                                    <i class="fas fa-clock text-xl text-primary mb-2"></i>
+                                    <div class="font-medium">Hourly</div>
+                                    <div class="text-primary font-semibold">₹200/hour</div>
+                                    <div class="text-sm text-gray-600">Flexible timing</div>
+                                </div>
+                            </label>
+                            <label class="border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors">
+                                <input type="radio" name="plan" value="monthly" class="sr-only">
+                                <div class="text-center">
+                                    <i class="fas fa-calendar-alt text-xl text-primary mb-2"></i>
+                                    <div class="font-medium">Monthly</div>
+                                    <div class="text-primary font-semibold">₹4,500/month</div>
+                                    <div class="text-sm text-gray-600">30-day access</div>
+                                </div>
+                            </label>
+                            <label class="border rounded-lg p-4 cursor-pointer hover:border-primary transition-colors">
+                                <input type="radio" name="plan" value="yearly" class="sr-only">
+                                <div class="text-center">
+                                    <i class="fas fa-calendar text-xl text-primary mb-2"></i>
+                                    <div class="font-medium">Yearly</div>
+                                    <div class="text-primary font-semibold">₹45,000/year</div>
+                                    <div class="text-sm text-gray-600">365-day access</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Date & Time Selection -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-4">Date & Time</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
+                                <input type="date" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Duration (Hours)</label>
+                                <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option>1 Hour</option>
+                                    <option>2 Hours</option>
+                                    <option>3 Hours</option>
+                                    <option>4 Hours</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Available Time Slots -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Available Time Slots</label>
+                            <div class="grid grid-cols-3 md:grid-cols-4 gap-2">
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    06:00 AM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    08:00 AM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    10:00 AM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    12:00 PM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    02:00 PM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    04:00 PM
+                                </button>
+                                <button class="bg-accent text-white rounded-lg py-2 px-3 text-sm">
+                                    06:00 PM
+                                </button>
+                                <button class="border border-gray-300 rounded-lg py-2 px-3 text-sm hover:border-primary hover:bg-primary hover:text-white transition-colors">
+                                    08:00 PM
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Summary -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h3 class="font-semibold mb-3">Booking Summary</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Facility:</span>
+                                <span data-bind="summary.facility">Badminton Court 1</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Date:</span>
+                                <span data-bind="summary.date">March 15, 2024</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Time:</span>
+                                <span data-bind="summary.time">06:00 PM - 07:00 PM</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Duration:</span>
+                                <span data-bind="summary.duration">1 Hour</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="flex justify-between font-semibold">
+                                <span>Total Amount:</span>
+                                <span class="text-primary" data-bind="summary.total">₹200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4">
+                        <button data-event="click:closeBookingModal" class="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+                            Cancel
+                        </button>
+                        <button data-event="click:proceedToPayment" class="flex-1 bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                            Proceed to Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Booking Flow Modal -->
+
+    <!-- @COMPONENT: Admin Dashboard Preview -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Admin Dashboard</h2>
+                <p class="text-xl text-gray-600">Comprehensive management interface for facility operations</p>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-calendar-check text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Today's Bookings</p>
+                            <p class="text-2xl font-bold text-dark" data-bind="stats.todayBookings">24</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-rupee-sign text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Today's Revenue</p>
+                            <p class="text-2xl font-bold text-dark" data-bind="stats.todayRevenue">₹12,450</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                            <i class="fas fa-users text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Active Members</p>
+                            <p class="text-2xl font-bold text-dark" data-bind="stats.activeMembers">156</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 shadow-lg">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-clock text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-gray-600 text-sm">Live Sessions</p>
+                            <p class="text-2xl font-bold text-dark" data-bind="stats.liveSessions">8</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-semibold text-dark">Recent Bookings</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Facility</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- @MAP: recentBookings.map(booking => ( -->
+                            <tr data-mock="true">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                                            R
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-900" data-bind="booking.customerName">Rahul Sharma</p>
+                                            <p class="text-sm text-gray-500" data-bind="booking.customerPhone">+91 98765 43210</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-bind="booking.facility">Badminton Court 1</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-bind="booking.dateTime">Mar 15, 6:00 PM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" data-bind="booking.amount">₹200</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-secondary text-white" data-bind="booking.status">Confirmed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary hover:text-blue-700 mr-2">View</button>
+                                    <button class="text-red-600 hover:text-red-700">Cancel</button>
+                                </td>
+                            </tr>
+                            <!-- @END_MAP )) -->
+                            <tr data-mock="true">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                                            P
+                                        </div>
+                                        <div class="ml-3">
+                                            <p class="text-sm font-medium text-gray-900">Priya Singh</p>
+                                            <p class="text-sm text-gray-500">+91 87654 32109</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Swimming Pool</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Mar 15, 7:00 AM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">₹150</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-accent text-white">In Progress</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-primary hover:text-blue-700 mr-2">View</button>
+                                    <button class="text-red-600 hover:text-red-700">Cancel</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Admin Dashboard Preview -->
+
+    <!-- @COMPONENT: About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">About Aryen Sports Arena</h2>
+                    <p class="text-lg text-gray-600 mb-6">
+                        Established with a vision to promote sports and fitness in our community, Aryen Sports Arena 
+                        offers state-of-the-art facilities for athletes and sports enthusiasts of all levels.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-secondary text-xl mr-3"></i>
+                            <span class="text-gray-700">Professional-grade equipment and facilities</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-secondary text-xl mr-3"></i>
+                            <span class="text-gray-700">Experienced coaches and trainers available</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-secondary text-xl mr-3"></i>
+                            <span class="text-gray-700">Flexible booking options to suit your schedule</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-secondary text-xl mr-3"></i>
+                            <span class="text-gray-700">Clean, safe, and well-maintained environment</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!-- Modern recreational facility building exterior -->
+                    <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Modern recreation centre building" class="rounded-xl shadow-lg w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: About Section -->
+
+    <!-- @COMPONENT: Login/Registration Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl max-w-md w-full">
+                <div class="p-6 border-b">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-2xl font-bold text-dark">Welcome Back</h2>
+                        <button data-event="click:closeAuthModal" class="text-gray-500 hover:text-dark">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Tab Navigation -->
+                    <div class="flex mb-6">
+                        <button id="login-tab" class="flex-1 py-2 px-4 bg-primary text-white rounded-l-lg">Login</button>
+                        <button id="signup-tab" class="flex-1 py-2 px-4 bg-gray-200 text-gray-700 rounded-r-lg">Sign Up</button>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form id="login-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                            <input type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="+91 98765 43210" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-gray-300 text-primary">
+                                <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                            </label>
+                            <a href="#" class="text-sm text-primary hover:text-blue-700">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Login
+                        </button>
+                    </form>
+
+                    <!-- Registration Form -->
+                    <form id="signup-form" class="space-y-4 hidden">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+                            <input type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="+91 98765 43210" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
+                            <input type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Referral Code (Optional)</label>
+                            <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-gray-300 text-primary" required>
+                                <span class="ml-2 text-sm text-gray-600">I agree to receive SMS/email notifications</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Send OTP
+                        </button>
+                    </form>
+
+                    <!-- OTP Verification -->
+                    <div id="otp-form" class="hidden">
+                        <div class="text-center mb-4">
+                            <p class="text-gray-600">Enter the OTP sent to your mobile number</p>
+                        </div>
+                        <div class="flex gap-2 justify-center mb-4">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" maxlength="1" class="w-12 h-12 text-center border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <button class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-700 transition-colors mb-2">
+                            Verify OTP
+                        </button>
+                        <button class="w-full text-primary hover:text-blue-700 text-sm">
+                            Resend OTP
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Login/Registration Modal -->
+
+    <!-- @COMPONENT: Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">Get in Touch</h2>
+                    <p class="text-lg text-gray-600 mb-8">
+                        Have questions about our facilities or need assistance with booking? 
+                        We're here to help you get started on your fitness journey.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-dark">Address</h3>
+                                <p class="text-gray-600">123 Sports Complex Road, Recreation District, City 560001</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-dark">Phone</h3>
+                                <p class="text-gray-600">+91 98765 43210</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-dark">Email</h3>
+                                <p class="text-gray-600">info@aryenrecreation.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-semibold text-dark">Operating Hours</h3>
+                                <p class="text-gray-600">Mon-Sun: 6:00 AM - 10:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="bg-white rounded-xl p-6 shadow-lg">
+                        <h3 class="text-xl font-semibold text-dark mb-4">Send us a Message</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                                <input type="tel" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                                <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-primary focus:border-transparent" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: Contact Section -->
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-dumbbell text-primary text-2xl mr-3"></i>
+                        <span class="font-bold text-xl">Aryen Sports Arena</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Your premier destination for sports and fitness. Join our community and achieve your goals.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-primary transition-colors">Home</a></li>
+                        <li><a href="#facilities" class="hover:text-primary transition-colors">Facilities</a></li>
+                        <li><a href="#about" class="hover:text-primary transition-colors">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-primary transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Membership</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Facilities</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-primary transition-colors">Badminton Courts</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Soccer Turf</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Basketball Court</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Swimming Pool</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Cricket Turf</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold text-lg mb-4">Contact Info</h3>
+                    <div class="space-y-3 text-gray-400">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span class="text-sm">123 Sports Complex Road, City 560001</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span class="text-sm">+91 98765 43210</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span class="text-sm">info@aryenrecreation.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Aryen Sports Arena. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- Floating Action Button for Mobile -->
+    <div class="fixed bottom-6 right-6 md:hidden z-40">
+        <button data-event="click:openBookingModal" class="w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:bg-blue-700 transition-all transform hover:scale-110">
+            <i class="fas fa-calendar-plus text-xl"></i>
+        </button>
+    </div>
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        (function() {
+            // Mobile menu toggle
+            const mobileMenuButton = document.querySelector('[data-event="click:toggleMobileMenu"]');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Auth modal toggle
+            const authButtons = document.querySelectorAll('[data-event="click:openLoginModal"]');
+            const authModal = document.getElementById('auth-modal');
+            const closeAuthModal = document.querySelector('[data-event="click:closeAuthModal"]');
+            
+            authButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    authModal.classList.remove('hidden');
+                });
+            });
+            
+            if (closeAuthModal) {
+                closeAuthModal.addEventListener('click', function() {
+                    authModal.classList.add('hidden');
+                });
+            }
+
+            // Auth tabs
+            const loginTab = document.getElementById('login-tab');
+            const signupTab = document.getElementById('signup-tab');
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            
+            if (loginTab && signupTab) {
+                loginTab.addEventListener('click', function() {
+                    loginTab.classList.add('bg-primary', 'text-white');
+                    loginTab.classList.remove('bg-gray-200', 'text-gray-700');
+                    signupTab.classList.add('bg-gray-200', 'text-gray-700');
+                    signupTab.classList.remove('bg-primary', 'text-white');
+                    loginForm.classList.remove('hidden');
+                    signupForm.classList.add('hidden');
+                });
+                
+                signupTab.addEventListener('click', function() {
+                    signupTab.classList.add('bg-primary', 'text-white');
+                    signupTab.classList.remove('bg-gray-200', 'text-gray-700');
+                    loginTab.classList.add('bg-gray-200', 'text-gray-700');
+                    loginTab.classList.remove('bg-primary', 'text-white');
+                    signupForm.classList.remove('hidden');
+                    loginForm.classList.add('hidden');
+                });
+            }
+
+            // Booking modal toggle
+            const bookingButtons = document.querySelectorAll('[data-event="click:selectFacility"], [data-event="click:scrollToFacilities"]');
+            const bookingModal = document.getElementById('booking-modal');
+            const closeBookingModal = document.querySelector('[data-event="click:closeBookingModal"]');
+            
+            bookingButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    bookingModal.classList.remove('hidden');
+                });
+            });
+            
+            if (closeBookingModal) {
+                closeBookingModal.addEventListener('click', function() {
+                    bookingModal.classList.add('hidden');
+                });
+            }
+
+            // Time slot selection
+            const timeSlots = document.querySelectorAll('#booking-modal button[class*="border-gray-300"]');
+            timeSlots.forEach(slot => {
+                slot.addEventListener('click', function() {
+                    // Remove selection from all slots
+                    timeSlots.forEach(s => {
+                        s.classList.remove('bg-primary', 'text-white');
+                        s.classList.add('border-gray-300');
+                    });
+                    // Add selection to clicked slot
+                    this.classList.add('bg-primary', 'text-white');
+                    this.classList.remove('border-gray-300');
+                });
+            });
+
+            // Plan selection
+            const planOptions = document.querySelectorAll('input[name="plan"]');
+            planOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    planOptions.forEach(p => {
+                        p.closest('label').classList.remove('border-primary', 'bg-blue-50');
+                        p.closest('label').classList.add('border-gray-300');
+                    });
+                    if (this.checked) {
+                        this.closest('label').classList.add('border-primary', 'bg-blue-50');
+                        this.closest('label').classList.remove('border-gray-300');
+                    }
+                });
+            });
+
+            // Booking type selection
+            const bookingTypes = document.querySelectorAll('input[name="booking-type"]');
+            bookingTypes.forEach(type => {
+                type.addEventListener('change', function() {
+                    bookingTypes.forEach(t => {
+                        t.closest('label').classList.remove('border-primary', 'bg-blue-50');
+                        t.closest('label').classList.add('border-gray-300');
+                    });
+                    if (this.checked) {
+                        this.closest('label').classList.add('border-primary', 'bg-blue-50');
+                        this.closest('label').classList.remove('border-gray-300');
+                    }
+                });
+            });
+
+            // OTP input auto-focus
+            const otpInputs = document.querySelectorAll('#otp-form input[type="text"]');
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', function() {
+                    if (this.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && this.value === '' && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

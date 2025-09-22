@@ -1,0 +1,200 @@
+Aryen Recreation Centre - Sports Facility Booking System
+Create a comprehensive web application for Aryen Recreation Centre that allows users to book sports facilities online. The app must be fully responsive and work seamlessly on both desktop and mobile devices.
+Core Requirements
+Technology Stack
+
+Frontend: React.js with responsive design (mobile-first approach)
+Backend: Node.js with Express.js
+Database: MongoDB or PostgreSQL
+Authentication: JWT with OTP verification
+Payment Integration: Simulation mode initially (Stripe integration ready for future)
+Styling: Tailwind CSS or Material-UI for responsive design
+
+Pre-configured Facilities
+Available Sports Facilities:
+
+Badminton Court 1
+Badminton Court 2
+Soccer Turf
+Cricket Turf
+Basketball Ground
+Swimming Pool
+Additional facilities (admin can add more)
+
+Landing Page Features
+
+Welcome message for "Aryen Recreation Centre"
+Hero section with facility images
+"Explore Facilities" section showcasing available sports
+"About the Centre" information section
+Primary CTAs: "Login/Sign Up" and "Book a Slot Now" buttons
+Contact information and location details
+
+User Roles & Authentication
+1. Client/User Flow
+Registration/Login Requirements:
+
+Full name (required)
+Mobile number with OTP verification (required)
+Email address (optional but recommended)
+Referral code (optional)
+Mandatory checkbox for SMS/email notifications
+
+2. Admin Dashboard
+
+Separate admin login portal
+Full administrative access
+
+3. Manager Access
+
+Manager role structure (permissions to be defined later)
+Separate manager login portal
+
+Booking Workflow
+Client Booking Process:
+
+Facility Selection: Browse and select sports facility
+Ground/Court Selection: Choose specific venue
+Plan Selection:
+
+Hourly (with date and time selection)
+Monthly (30-day recurring slots)
+Yearly (365-day recurring slots)
+
+
+Booking Type:
+
+Per person (specify number of people)
+Full ground booking
+
+
+Slot Selection:
+
+For hourly: Pick date + number of hours
+For monthly/yearly: Select recurring time slots
+
+
+Pricing Logic:
+
+Peak hours: Higher rates
+Day hours: Standard rates
+Weekend premium (hourly only)
+Monthly/yearly: Flat rates regardless of weekday/weekend
+
+
+Authentication: Login/signup before checkout
+Payment Options: Credit card, UPI, Cash with partial payment support
+Confirmation: SMS and email confirmation with booking details
+
+Additional Features:
+
+Coupon/Credits System: Purchase section (admin-controlled options)
+Booking History: User dashboard with past and upcoming bookings
+Profile Management: Edit user details and preferences
+
+Admin Dashboard Features
+Analytics & Reports:
+
+Today's Summary: Bookings count, revenue, collections
+Weekly Overview: Bookings trend and revenue
+Membership Alerts: Expiring memberships
+Real-time Status: Ground availability, active bookings
+Member Statistics: Total registered, active members
+Payment Tracking: Pending payments, partial payments
+
+Advanced Reports:
+
+Booking summary reports (filterable by date range)
+Revenue reports (by sport, daily/weekly/monthly)
+Facility usage analytics
+Member-wise booking and payment history
+Coupon usage statistics
+
+Management Features:
+
+Facility Management: Add/edit/remove sports, grounds, plans
+Pricing Control: Full pricing control for all facilities and time slots
+Capacity Management: Set maximum capacity for each facility
+Operating Hours: Configure centre operating hours
+Slot Management: Configure available time slots
+Calendar View: Visual booking calendar
+Manual Booking: Create bookings on behalf of users
+Payment Management: Process partial payments, simulate refunds
+Member Management: View/edit user profiles, booking history
+Coupon Management: Create/edit/disable promotional codes
+Notification System: Send announcements and reminders to users
+Booking Management: Handle cancellations and modifications
+
+Notification System:
+
+Booking Confirmations: SMS and email confirmations
+Booking Reminders: Automated reminders for upcoming bookings
+Exit Reminders: 5-minute warning before booking end time
+Promotional Notifications: Marketing offers and announcements
+Maintenance Alerts: Facility maintenance notifications
+Payment Reminders: Pending payment notifications
+
+Data Privacy & Access:
+
+User Data Protection: Secure storage of personal information
+Admin Access: Full access to user details (name, phone, booking history) for business operations
+Data Retention: Appropriate data retention policies
+Consent Management: User consent for notifications and data usage
+
+Security Features:
+
+Secure OTP verification system
+Password encryption (bcrypt)
+JWT token-based authentication
+Input validation and sanitization
+SQL injection prevention
+Rate limiting for API calls
+
+Mobile Responsiveness:
+
+Touch-friendly interface elements
+Optimized forms for mobile input
+Fast loading times
+Offline capability for viewing bookings
+Progressive Web App (PWA) features
+
+Database Schema (Include these entities):
+
+Users (clients, admins, managers)
+Sports/Facilities
+Grounds/Courts
+Booking Plans
+Time Slots
+Bookings
+Payments
+Coupons
+Notifications
+
+API Endpoints Structure:
+
+Authentication routes (/api/auth/)
+Booking routes (/api/bookings/)
+Facility routes (/api/facilities/)
+Payment routes (/api/payments/)
+Admin routes (/api/admin/)
+User routes (/api/users/)
+
+Additional Requirements:
+
+Email Service: Integration for confirmation emails
+SMS Service: OTP and booking confirmations
+File Upload: For facility images and user avatars
+Backup System: Regular database backups
+Error Logging: Comprehensive error tracking
+Performance Monitoring: API response time tracking
+
+Deliverables:
+
+Fully functional web application
+Admin dashboard with all specified features
+Mobile-responsive design
+Basic deployment configuration
+Sample data for testing
+User documentation for admin features
+
+Create this as a complete, production-ready application with proper error handling, validation, and security measures.
