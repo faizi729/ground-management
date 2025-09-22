@@ -10,6 +10,6 @@ if (!process.env.DATABASE_URL) {
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
-  
+  family: 4  // Use IPv4, skip trying IPv6
  });
 export const db = drizzle(pool);
