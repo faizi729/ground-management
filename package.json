@@ -54,6 +54,7 @@
     "connect-pg-simple": "^10.0.0",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.18",
+    "dns": "^0.2.2",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.39.1",
     "drizzle-zod": "^0.7.0",
