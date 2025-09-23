@@ -468,77 +468,68 @@ app.post("/api/payments/create-order",isAuthenticated, async (req, res) => {
 
   // Payment routes
   app.post("/api/payments", isAuthenticated, async (req, res) => {
-    try {
-      const paymentData = insertPaymentSchema.parse({
-        ...req.body,
-        userId: req.user.id,
-        status: req.body.status || 'pending', // Default to pending if not specified
-        processedAt: req.body.status === 'completed' ? new Date() : null,
-      });
-      
-      // Create the payment record
-      const payment = await storage.createPayment(paymentData);
-      
-      // If payment is completed and has a booking ID, update the booking's paid amount
-      if (payment.status === 'completed' && payment.bookingId) {
-        try {
-          // Get the booking details
-          const booking = await storage.getBookingDetails(payment.bookingId);
-          if (booking) {
-            // Get all completed payments for this booking
-            const allPayments = await storage.getPayments(payment.bookingId);
-            const totalPaid = allPayments
-              .filter(p => p.status === 'completed')
-              .reduce((sum, p) => sum + Number(p.amount), 0);
-            
-            const totalAmount = Number(booking.totalAmount);
-            
-            // Determine payment status
-            let paymentStatus;
-            let bookingStatus = booking.status;
-            
-            if (totalPaid >= totalAmount) {
-              paymentStatus = 'completed';
-              bookingStatus = 'confirmed';
-            } else if (totalPaid > 0) {
-              paymentStatus = 'partial';
-            } else {
-              paymentStatus = 'pending';
-            }
-            
-            // Update booking with correct amounts and status
-            await storage.updateBookingPayment(payment.bookingId, {
-              paidAmount: totalPaid.toString(),
-              paymentStatus: paymentStatus,
-              status: bookingStatus
-            });
-          }
-        } catch (updateError) {
-          console.error("Error updating booking payment info:", updateError);
-          // Don't fail the payment creation, but log the error
+  try {
+    const paymentData = insertPaymentSchema.parse({
+      ...req.body,
+      userId: req.user.id,
+      status: req.body.status || 'pending',
+      processedAt: req.body.status === 'completed' ? new Date() : null,
+    });
+
+    console.log("Creating payment:", paymentData);
+
+    const payment = await storage.createPayment(paymentData);
+    console.log("Payment created:", payment);
+
+    if (payment.bookingId) {
+      try {
+        const booking = await storage.getBookingDetails(payment.bookingId);
+        console.log("Booking details:", booking);
+
+        if (booking) {
+          const allPayments = await storage.getPayments(payment.bookingId);
+          console.log("All payments for booking:", allPayments);
+
+          const totalPaid = allPayments.reduce((sum, p) => sum + Number(p.amount), 0) + Number(req.body.amount);
+
+let paymentStatus;
+let bookingStatus = booking.status;
+if (totalPaid >= Number(booking.totalAmount)) {
+  paymentStatus = 'completed';
+  bookingStatus = 'completed';
+} else if (totalPaid > 0) {
+  paymentStatus = 'partial';
+} else {
+  paymentStatus = 'pending';
+}
+
+          console.log("Determined paymentStatus:", paymentStatus);
+          console.log("Determined bookingStatus:", bookingStatus);
+
+          await storage.updateBookingPayment(payment.bookingId, {
+            paidAmount: totalPaid.toString(),
+            paymentStatus,
+            status: bookingStatus,
+          });
+
+          console.log("Booking updated successfully.");
         }
+      } catch (updateError) {
+        console.error("Error updating booking payment info:", updateError);
       }
-      
-      // Generate and send receipt if payment is completed
-      if (payment.status === 'completed' && payment.bookingId) {
-        try {
-          await generateAndSendReceipt(payment.id, req.body.sendSMS, req.body.sendEmail);
-        } catch (receiptError) {
-          console.error("Error generating receipt:", receiptError);
-          // Don't fail the payment creation, but log the error
-        }
-      }
-      
-      res.json(payment);
-    } catch (error) {
-      console.error("Error creating payment:", error);
-      if (error instanceof z.ZodError) {
-        res.status(400).json({ message: "Invalid payment data", errors: error.errors });
-        return;
-      }
-      res.status(500).json({ message: "Failed to create payment" });
     }
-  });
+
+    res.json(payment);
+  } catch (error) {
+    console.error("Error creating payment:", error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: "Invalid payment data", errors: error.errors });
+    }
+    res.status(500).json({ message: "Failed to create payment" });
+  }
+});
+
+
 
   // Admin routes
   app.get("/api/admin/stats", isAuthenticated, async (req, res) => {
@@ -673,6 +664,35 @@ app.post("/api/payments/create-order",isAuthenticated, async (req, res) => {
       res.status(500).json({ message: "Failed to create ground" });
     }
   });
+
+  app.patch("/api/admin/grounds/:id", isAuthenticated, async (req, res) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Admin access required" });
+    }
+
+    const groundId = Number(req.params.id);
+    if (isNaN(groundId)) {
+      return res.status(400).json({ message: "Invalid ground ID" });
+    }
+
+    const updateData = insertGroundSchema.parse(req.body); // schema for validation
+    const updatedGround = await storage.updateGround(groundId, updateData);
+
+    if (!updatedGround) {
+      return res.status(404).json({ message: "Ground not found" });
+    }
+
+    res.json(updatedGround);
+  } catch (error) {
+    console.error("Error updating ground:", error);
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({ message: "Invalid data", errors: error.errors });
+    }
+    res.status(500).json({ message: "Failed to update ground" });
+  }
+});
+
 
   app.get("/api/admin/plans", isAuthenticated, async (req, res) => {
     try {

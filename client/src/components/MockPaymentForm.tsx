@@ -106,145 +106,156 @@ if (remainingBalance === 0) {
 
 
   // 🔧 Handle Payment
-  const handlePayment = async () => {
-    if (!paymentOption) {
-      toast({
-        title: "Select Payment Option",
-        description: "Please choose Half or Full payment",
-        variant: "destructive",
-      });
-      return;
-    }
+ const handlePayment = async () => {
+  if (!paymentOption) {
+    toast({
+      title: "Select Payment Option",
+      description: "Please choose Half or Full payment",
+      variant: "destructive",
+    });
+    return;
+  }
 
-    // Auto-calculate
-    let numericAmount = paymentOption === "half" ? amount / 2 : amount;
-    let paymentStatus = paymentOption === "half" ? "partial" : "paid";
-    
+  // Calculate the payment amount based on selected option
+  const numericAmount = paymentOption === "half" ? amount / 2 : amount;
 
+  setIsProcessing(true);
+
+  try {
     // ✅ Razorpay flow
     if (selectedMethod === "Razorpay") {
-      try {
-        const orderRes = await fetch("/api/payments/create-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ bookingId, amount: numericAmount }),
-        });
-        const { orderId } = await orderRes.json();
+      // Step 1: Create order on backend
+      const orderRes = await fetch("/api/payments/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId, amount: numericAmount }),
+      });
 
-        const options = {
-          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-          amount: numericAmount * 100,
-          currency: "INR",
-          name: "Sports Facility Booker",
-          description: "Booking Payment",
-          order_id: orderId,
-          handler: async (response: any) => {
-            try {
-              const verifyRes = await fetch("/api/test-payment-success", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  ...response,
-                  bookingId,
-                  paymentStatus, // ✅ partial or paid
-                }),
-              });
+      if (!orderRes.ok) throw new Error("Order creation failed");
 
-              const verifyResult = await verifyRes.json();
+      const { orderId } = await orderRes.json();
 
-              if (verifyResult.payment && verifyResult.booking) {
-  setLastPaymentId(verifyResult.payment.id);
+      // Step 2: Open Razorpay checkout
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: numericAmount * 100, // in paise
+        currency: "INR",
+        name: "Sports Facility Booker",
+        description: "Booking Payment",
+        order_id: orderId,
+        handler: async (response: any) => {
+          try {
+            // Step 3: Notify backend about payment
+            const verifyRes = await fetch("/api/test-payment-success", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                ...response,
+                bookingId,
+                amount: numericAmount,
+                paymentMethod: selectedMethod,
+                discountAmount: parseFloat(discountAmount || "0"),
+                discountReason,
+              }),
+            });
 
-  buildReceiptData(
-    verifyResult.booking,
-    verifyResult.payment,
-    numericAmount,
-    verifyResult.paymentStatus
-  );
+            if (!verifyRes.ok) throw new Error("Payment verification failed");
 
-  setShowReceiptModal(true);
-  toast({ title: "Payment successful!", description: "Your payment has been processed." });
-} else {
-                toast({
-                  title: "Payment verification failed",
-                  variant: "destructive",
-                });
-              }
-            } catch (err: any) {
+            const result = await verifyRes.json();
+
+            if (result.payment && result.booking) {
+              setLastPaymentId(result.payment.id);
+
+              buildReceiptData(
+                result.booking,
+                result.payment,
+                numericAmount,
+                result.paymentStatus // backend-calculated
+              );
+
+              setShowReceiptModal(true);
+
               toast({
-                title: "Verification error",
-                description: err.message,
+                title: "Payment successful!",
+                description: "Your payment has been processed.",
+              });
+            } else {
+              toast({
+                title: "Payment verification failed",
                 variant: "destructive",
               });
             }
-          },
-          prefill: {
-            name: user?.firstName || "",
-            email: user?.email || "",
-            contact: user?.phone || "",
-          },
-          theme: { color: "#3399cc" },
-        };
+          } catch (err: any) {
+            toast({
+              title: "Verification error",
+              description: err.message,
+              variant: "destructive",
+            });
+          }
+        },
+        prefill: {
+          name: user?.firstName || "",
+          email: user?.email || "",
+          contact: user?.phone || "",
+        },
+        theme: { color: "#3399cc" },
+      };
 
-        const rzp = new (window as any).Razorpay(options);
-        rzp.open();
-      } catch {
-        toast({ title: "Order creation failed", variant: "destructive" });
-      }
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
       return;
     }
 
-    // ✅ Cash (Admin only)
-    setIsProcessing(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+    // ✅ Cash / Offline payment (admin)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      const response = await fetch("/api/test-payment-success", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          bookingId,
-          amount: numericAmount,
-          paymentMethod: selectedMethod,
-          paymentStatus, // ✅ partial or paid
-          discountAmount: parseFloat(discountAmount || "0"),
-          discountReason,
-        }),
-      });
+    const response = await fetch("/api/test-payment-success", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        bookingId,
+        amount: numericAmount,
+        paymentMethod: selectedMethod,
+        discountAmount: parseFloat(discountAmount || "0"),
+        discountReason,
+      }),
+    });
 
-      if (!response.ok) throw new Error("Payment processing failed");
+    if (!response.ok) throw new Error("Payment processing failed");
 
-      const result = await response.json();
+    const result = await response.json();
 
-      if (result.payment && result.payment.id && result.booking) {
-        setLastPaymentId(result.payment.id);
-        buildReceiptData(
-          result.booking,
-          result.payment,
-          numericAmount,
-          paymentStatus
-        );
-      }
+    if (result.payment && result.payment.id && result.booking) {
+      setLastPaymentId(result.payment.id);
+
+      buildReceiptData(
+        result.booking,
+        result.payment,
+        numericAmount,
+        result.paymentStatus // backend-calculated
+      );
+
+      setShowReceiptModal(true);
 
       toast({
         title: "Payment Successful",
-        description: `Your booking is ${
-          paymentStatus === "partial" ? "partially paid" : "fully paid"
+        description: `Your booking is now ${
+          result.paymentStatus === "partial" ? "partially paid" : "fully paid"
         }!`,
       });
-
-      setTimeout(() => setShowReceiptModal(true), 1000);
-    } catch (error) {
-      toast({
-        title: "Payment Failed",
-        description: "Unable to process payment. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsProcessing(false);
     }
-  };
+  } catch (error: any) {
+    toast({
+      title: "Payment Failed",
+      description: error.message || "Unable to process payment. Please try again.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsProcessing(false);
+  }
+};
+
 
   return (
     <Card className="w-full max-w-md mx-auto">

@@ -746,7 +746,7 @@ async getFacilitySlots(facilityId: number, date?: string): Promise<any[]> {
       endDate: bookings.endDate,
       duration: bookings.duration,
       createdAt: bookings.createdAt,
-      // Ground and sport details from master tables
+      
       facilityName: grounds.groundName,
       facilityType: sports.sportName,
       // User details

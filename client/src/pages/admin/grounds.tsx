@@ -351,9 +351,9 @@ export default function AdminGrounds() {
                 <Input 
                   type="number" 
                   placeholder="Enter capacity (required)"
-                  min="1"
+                  
                   value={field.value || ""} 
-                  onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : 1)}
+                  onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : 0)}
                 />
               </FormControl>
               <FormMessage />

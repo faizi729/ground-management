@@ -944,6 +944,11 @@ const handleBookNow = () => {
                       borderColor = "border-green-300";
                       // console.log(`🟢 Green - Slot ${slot.startTime}: High availability (${availableCapacity} slots)`);
                     }
+                    const slotDateTime = new Date(
+    `${selectedDate?.toDateString()} ${slot.startTime}`
+  );
+                   const now = new Date()
+                     const isPast = slotDateTime < now;
                     
                     return (
                       <Button
@@ -951,7 +956,7 @@ const handleBookNow = () => {
                         variant="outline"  
                         onClick={() => setSelectedTimeSlot(slot.startTime)}
                         className={`h-16 flex flex-col justify-center transition-colors ${bgColor} ${textColor} ${borderColor}`}
-                        disabled={!slot.isAvailable}
+                        disabled={!slot.isAvailable || isPast}
                       >
                         <div className="text-sm font-medium">
                           {slot.startTime?.substring(0, 5)} - {slot.endTime?.substring(0, 5)}
