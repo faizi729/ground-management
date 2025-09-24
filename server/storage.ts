@@ -278,7 +278,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getAllSports(): Promise<Sport[]> {
-    return await db.select({
+  return await db
+    .select({
       id: sports.id,
       sportId: sports.id,
       sportName: sports.sportName,
@@ -289,8 +290,11 @@ export class DatabaseStorage implements IStorage {
       isActive: sports.isActive,
       createdAt: sports.createdAt,
       modifiedAt: sports.modifiedAt
-    }).from(sports).where(eq(sports.isActive, true)).orderBy(asc(sports.sportName));
-  }
+    })
+    .from(sports)
+    .orderBy(asc(sports.sportName)); // no isActive filter now
+}
+
 
   async getSport(id: number): Promise<Sport | undefined> {
     const [sport] = await db.select().from(sports).where(eq(sports.id, id));
@@ -331,7 +335,7 @@ export class DatabaseStorage implements IStorage {
       isActive: grounds.isActive,
       createdAt: grounds.createdAt,
       modifiedAt: grounds.modifiedAt
-    }).from(grounds).where(eq(grounds.isActive, true)).orderBy(asc(grounds.groundName));
+    }).from(grounds).orderBy(asc(grounds.groundName));
   }
 
   async getGround(id: number): Promise<Ground | undefined> {
