@@ -1067,7 +1067,7 @@ const handleBookNow = () => {
                                     {breakdown.peakSlots > 0 && (
                                       <div className="flex justify-between text-orange-600">
                                         <span>Peak hours ({breakdown.peakSlots}h) (+{((breakdown.peakMultiplier - 1) * 100).toFixed(0)}%):</span>
-                                        <span>₹{(breakdown.basePrice * breakdown.peakMultiplier * (breakdown.isWeekend ? breakdown.weekendMultiplier : 1) * breakdown.peakSlots).toFixed(0)}</span>
+                                        <span>₹{breakdown.basePrice * (breakdown.peakMultiplier - 1)}</span>
                                       </div>
                                     )}
                                     {breakdown.isWeekend && breakdown.weekendMultiplier > 1 && (

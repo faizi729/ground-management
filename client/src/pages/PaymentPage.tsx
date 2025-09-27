@@ -219,6 +219,7 @@ export default function PaymentPage() {
           <MockPaymentForm
             bookingId={booking.id}
             amount={remainingBalance}
+            newAmount={booking.totalAmount}
             currency="INR"
             onSuccess={() => {
               setLocation('/profile?tab=bookings');

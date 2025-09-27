@@ -8,6 +8,8 @@ import { ReceiptModal } from "./ReceiptModal";
 
 interface MockPaymentFormProps {
   bookingId: number;
+   alreadyPaid?: number;
+  newAmount?: number;
   amount: number;
   currency?: string;
   onSuccess: () => void;
@@ -17,6 +19,8 @@ interface MockPaymentFormProps {
 export const MockPaymentForm = ({
   bookingId,
   amount,
+  newAmount,
+   alreadyPaid = 0,
   currency = "INR",
   onSuccess,
   onCancel,
@@ -35,8 +39,16 @@ export const MockPaymentForm = ({
   const [receiptData, setReceiptData] = useState<any>(null);
   const { toast } = useToast();
   const { user } = useAuth();
+ const numericNewAmount = Number(newAmount); // convert string to number
+
+console.log("new one", numericNewAmount.toFixed(2)); // ✅ Works
+console.log("type:", typeof numericNewAmount)
 
   const isAdmin = user?.role === "admin" || user?.role === "manager";
+   const totalAmount = amount - alreadyPaid  ;
+   console.log("total amount",totalAmount)
+   console.log(" amount",amount,typeof amount)
+   console.log(" amount paid",alreadyPaid)
 
   // 🔧 Receipt Builder
  // 🔧 Receipt Builder
@@ -117,7 +129,12 @@ if (remainingBalance === 0) {
   }
 
   // Calculate the payment amount based on selected option
-  const numericAmount = paymentOption === "half" ? amount / 2 : amount;
+ 
+const numericAmount =
+  paymentOption === "half" && alreadyPaid === 0
+    ? totalAmount / 2
+    : amount;
+
 
   setIsProcessing(true);
 
@@ -257,6 +274,8 @@ if (remainingBalance === 0) {
 };
 
 
+
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
@@ -268,41 +287,47 @@ if (remainingBalance === 0) {
       <CardContent>
         <div className="space-y-4">
           {/* Payment Option: Half or Full */}
-          <div className="space-y-3">
-            <p className="text-sm font-medium text-gray-700">
-              Select Payment Option
-            </p>
+          {/* Payment Option: Half or Full */}
+<div className="space-y-3">
+  <p className="text-sm font-medium text-gray-700">
+    Select Payment Option
+  </p>
 
-            {/* Half Payment */}
-            <div
-              className={`border rounded-lg p-3 cursor-pointer transition-colors ${
-                paymentOption === "half"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-gray-300"
-              }`}
-              onClick={() => setPaymentOption("half")}
-            >
-              <p className="font-medium text-sm">Half Payment</p>
-              <p className="text-xs text-gray-500">
-                Pay 50% (₹{(amount / 2).toFixed(2)})
-              </p>
-            </div>
+  {/* Half Payment (only if nothing paid yet) */}
+  {amount === numericNewAmount && (
+  <div
+    className={`border rounded-lg p-3 cursor-pointer transition-colors ${
+      paymentOption === "half"
+        ? "border-primary bg-primary/5"
+        : "border-gray-200 hover:border-gray-300"
+    }`}
+    onClick={() => setPaymentOption("half")}
+  >
+    <p className="font-medium text-sm">Half Payment</p>
+    <p className="text-xs text-gray-500">
+      Pay 50% (₹{(totalAmount / 2).toFixed(2)})
+    </p>
+  </div>
+)}
 
-            {/* Full Payment */}
-            <div
-              className={`border rounded-lg p-3 cursor-pointer transition-colors ${
-                paymentOption === "full"
-                  ? "border-primary bg-primary/5"
-                  : "border-gray-200 hover:border-gray-300"
-              }`}
-              onClick={() => setPaymentOption("full")}
-            >
-              <p className="font-medium text-sm">Full Payment</p>
-              <p className="text-xs text-gray-500">
-                Pay 100% (₹{amount.toFixed(2)})
-              </p>
-            </div>
-          </div>
+  {/* Full Payment (always for whatever balance is left) */}
+  {amount > 0 && (
+    <div
+      className={`border rounded-lg p-3 cursor-pointer transition-colors ${
+        paymentOption === "full"
+          ? "border-primary bg-primary/5"
+          : "border-gray-200 hover:border-gray-300"
+      }`}
+      onClick={() => setPaymentOption("full")}
+    >
+      <p className="font-medium text-sm">Full Payment</p>
+      <p className="text-xs text-gray-500">
+        Pay 100% (₹{amount.toFixed(2)})
+      </p>
+    </div>
+  )}
+</div>
+
 
           {/* Payment Method */}
           <div className="space-y-3">
@@ -327,7 +352,7 @@ if (remainingBalance === 0) {
                 />
                 <div>
                   <p className="font-medium text-sm">Pay with Razorpay</p>
-                  <p className="text-xs text-gray-500">Card / UPI / Netbanking</p>
+                  <p className="text-xs text-gray-500">Card / UPI / NetBanking</p>
                 </div>
                 <div className="ml-auto">
                   <div
